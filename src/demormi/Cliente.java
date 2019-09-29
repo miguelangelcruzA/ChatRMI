@@ -19,7 +19,7 @@ public class Cliente {
             String opcion = "0";
             boolean condicion = true;
             Scanner in = new Scanner(System.in);
-            Registry registro = LocateRegistry.getRegistry(1099);
+            Registry registro = LocateRegistry.getRegistry("192.168.100.4", 1099);
             InterfazCliente cliente = new ClienteImpl();
             InterfazServer server = (InterfazServer) registro.lookup("Callback");
             System.out.println("Ingrese su nombre para ser registrado");
