@@ -27,13 +27,16 @@ public class Cliente {
                     case "1": 
                         System.out.println("Ingrese su mensaje");
                          mensaje = in.nextLine();
+                         mensaje = server.encriptar(mensaje);
                          server.sendbroadcastGroup(name,mensaje);
+                         
                         break;
                     case "2":
                         System.out.println("Ingrese el destino");
                         destino = in.nextLine();
                         System.out.println("Ingrese el mensaje");                         
                         mensaje = in.nextLine();
+                        mensaje = server.encriptar(mensaje);
                         server.sendbroadcast(destino, mensaje, name);                       
                         break; 
                         default:

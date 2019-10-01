@@ -22,7 +22,7 @@ public class Server {
              System.out.println("Server listo");
         } 
         catch (Exception e) {
-            
+            System.out.println(e.getMessage());
         }
 
         

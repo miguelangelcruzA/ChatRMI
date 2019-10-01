@@ -5,6 +5,7 @@
  */
 package demormi;
 
+import java.io.UnsupportedEncodingException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -18,6 +19,8 @@ public interface InterfazServer extends Remote{
     public void unregisterme(String name) throws RemoteException;
     public void sendbroadcast(String nickname, String mensaje,String origen) throws RemoteException;
     public void sendbroadcastGroup(String nickname ,String mensaje) throws RemoteException;
+    public String encriptar(String msj) throws UnsupportedEncodingException, RemoteException;
+    public String desencriptar(String msj) throws UnsupportedEncodingException, RemoteException;
     
     
     
