@@ -3,10 +3,6 @@ package demormi;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-/**
- *
- * @author migue
- */
 public class ClienteImpl extends UnicastRemoteObject implements InterfazCliente{
     
      public ClienteImpl() throws RemoteException{
@@ -17,10 +13,10 @@ public class ClienteImpl extends UnicastRemoteObject implements InterfazCliente{
         System.out.println(info);
     }
 
-    @Override
-    public void notificacion(String destino, String info) throws RemoteException {
-        System.out.println( destino + ": " + info);
-    }
+//    @Override
+  //  public void notificacion(String destino, String info) throws RemoteException {
+    //    System.out.println( destino + ": " + info);
+   // }
 
         
     

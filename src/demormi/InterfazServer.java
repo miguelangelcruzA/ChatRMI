@@ -18,8 +18,6 @@ public interface InterfazServer extends Remote{
     public void unregisterme(String name) throws RemoteException;
     public void sendbroadcast(String nickname, String mensaje,String origen) throws RemoteException;
     public void sendbroadcastGroup(String nickname ,String mensaje) throws RemoteException;
-    public void setname(String name) throws RemoteException;
-    public String getname() throws RemoteException;
     
     
     

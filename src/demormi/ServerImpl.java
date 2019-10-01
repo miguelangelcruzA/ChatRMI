@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package demormi;
 
 import java.rmi.RemoteException;
@@ -10,33 +5,25 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- *
- * @author migue
- */
-public class ServerImpl extends UnicastRemoteObject implements InterfazServer{
-    ArrayList<InterfazCliente> lista;
+
+public class ServerImpl extends UnicastRemoteObject implements InterfazServer{    
     HashMap<String, InterfazCliente> lista02;
     String name;
     
     public ServerImpl() throws RemoteException{
         super();
-        lista = new ArrayList<InterfazCliente>();
         lista02 = new HashMap<String,InterfazCliente>();
-        //sustituir un arraylist por un hashmap
-    }
-    
-    
+        
+    }     
     @Override
     public synchronized void registrarme(InterfazCliente cliente,String nombre) throws RemoteException {
-        lista.add(cliente);
+        cliente.notificacion("se registrado el usuario " + nombre);
         lista02.put(nombre, cliente);
-        cliente.notificacion("se registrado el usuario con nombre " + nombre);
+        
         
         
         broadcast(nombre);
     }
-
     @Override
     public synchronized void unregisterme(String nickname) throws RemoteException {
         for(InterfazCliente c: lista02.values()){
@@ -44,7 +31,7 @@ public class ServerImpl extends UnicastRemoteObject implements InterfazServer{
                 c.notificacion("el usuario " + nickname + " ha sido removido");
                 
             } catch (Exception e) {
-                System.out.println(e.getStackTrace());
+                System.out.println(e.getMessage());
             }
         }        
         lista02.remove(nickname);
@@ -55,35 +42,28 @@ public class ServerImpl extends UnicastRemoteObject implements InterfazServer{
             try {
                 c.notificacion("usuarios registrados: " + lista02.keySet());
             } catch (Exception e) {
-                System.out.println(e.getStackTrace());
+                System.out.println(e.getMessage());
             }            
         }        
     }
-
     @Override
-    public  void sendbroadcast(String nickname, String mensaje,String origen) throws RemoteException {                
-        lista02.get(nickname).notificacion(origen, mensaje);                
+    public  void sendbroadcast(String nickname, String mensaje, String origen) throws RemoteException {                
+        String info = origen + ": " + mensaje;  
+        InterfazCliente c = lista02.get(nickname);
+        c.notificacion(info);
+
+        //lista02.get(nickname).notificacion(origen +": " +  mensaje);                
     }
-
-    @Override
-    public void setname(String name) throws RemoteException {
-        this.name = name;
-    }
-
-    @Override
-    public String getname() throws RemoteException {
-        return name;    
-       }
     @Override
     public void sendbroadcastGroup(String nickname, String mensaje) throws RemoteException {
         for (InterfazCliente c: lista02.values()) {
             try {
-                c.notificacion(nickname, mensaje);
+                c.notificacion(nickname + ": " +  mensaje);
             } catch (Exception e) {
-                System.out.println(e.getStackTrace());
+                System.out.println(e.getMessage());
             }
             
         }
-    }
+    }    
  
 }
